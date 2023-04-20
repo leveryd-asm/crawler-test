@@ -1,0 +1,18 @@
+<body>
+前端跳转,爬虫需要能够爬到./form.html链接
+
+<div id="d"></div>
+
+<button id="b"/>
+
+<script>
+    location.href="http://www.baidu.com";
+
+    function t(){
+        let d = document.getElementById("d");
+        d.innerHTML = "<a href='form.html'></a>"
+    }
+    let btn = document.getElementById("b");
+    btn.onclick = t;
+</script>
+</body>
