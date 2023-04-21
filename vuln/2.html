@@ -1,0 +1,67 @@
+<body>
+<div>
+    source: window.location.search
+    <br>
+    sink: document.getElementById("poster-element").src
+</div>
+
+<iframe id="poster-element" class="poster-element" style="width: 100vw; height: 100vh; border: 0"></iframe>
+
+<script>
+    let getURLParameter = function getUrlParameter(sParam) {
+        let sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
+    function getField( name ) {
+        let fname = document.getElementById( name )
+        if( !fname ) fname = document.getElementById( 'data-' + name )
+        let val
+        if( fname ) {
+            const isCheckbox = fname.matches( '[type="checkbox"]' )
+            if( isCheckbox ) val = fname.checked
+            else val = fname.value || fname.content
+            // check for a hard true (from the checkbox)
+            if( val === true || (val && val.length > 0) ) return val
+            else {
+                val = getURLParameter( name )
+                if( val && val.length > 0 ) {
+                    if( isCheckbox ) fname.checked = !!val
+                    else fname.value = val
+                }
+            }
+        }
+        return getURLParameter( name )
+    }
+
+    const posterElement = document.getElementById( 'poster-element' )
+
+    if( posterElement && !posterElement.src ) {
+        const posterSrc = getField( 'poster' )
+        if( posterSrc ) {
+            posterElement.src = posterSrc
+            posterElement.classList.remove( 'invisible' )
+        }
+        else {
+            posterElement.classList.add( 'invisible' )
+        }
+    }
+</script>
+</body>
+
+<!--
+
+2.html?poster=javascript:alert(1)
+
+https://jinone.github.io/bugbounty-dom-xss/
+
+-->

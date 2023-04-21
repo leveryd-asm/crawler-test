@@ -1,0 +1,38 @@
+<body>
+<div>
+测试是否有污点跟踪能力
+
+source: window.location.search
+<br>
+sink: document.write
+</div>
+
+<script>
+    function getUrlParameter(sParam) {
+        let sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    }
+
+    let n = getUrlParameter("sca_message") || "";
+    // let m = n.toUpperCase(); // convert
+    let m = n.replace("r", "");
+    document.write(m);
+</script>
+</body>
+
+<!--
+
+1.html?sca_message=<img%20src%3d1%20onerror%3dalert(1)>
+
+https://jinone.github.io/bugbounty-dom-xss/
+
+-->

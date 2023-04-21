@@ -12,7 +12,7 @@
    比如测试katana能够满足哪些场景，可以使用如下命令
 
    ```
-   docker run -ti --privileged --rm projectdiscovery/katana:v1.0.1 -v -aff -u 192.168.2.105:8080/x_dialog.html -system-chrome -headless
+   docker run -ti --privileged --rm projectdiscovery/katana:v1.0.1 -v -aff -u 192.168.2.105:8080/pages/x_dialog.html -system-chrome -headless
    ```
   
 # 目录
