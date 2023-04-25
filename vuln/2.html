@@ -46,7 +46,7 @@
     const posterElement = document.getElementById( 'poster-element' )
 
     if( posterElement && !posterElement.src ) {
-        const posterSrc = getField( 'poster' )
+        const posterSrc = getField( 'test' )
         if( posterSrc ) {
             posterElement.src = posterSrc
             posterElement.classList.remove( 'invisible' )
@@ -60,7 +60,7 @@
 
 <!--
 
-2.html?poster=javascript:alert(1)
+2.html?test=javascript:alert(1)
 
 https://jinone.github.io/bugbounty-dom-xss/
 

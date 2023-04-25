@@ -1,9 +1,7 @@
 <body>
-<div>
-source: window.location.search
-<br>
-sink: document.write
-</div>
+source: sessionStorage.getItem
+
+sink: element.innerHTML
 
 <script>
     function getUrlParameter(sParam) {
@@ -20,15 +18,19 @@ sink: document.write
         }
     }
 
-    let n = getUrlParameter("test") || "";
-    document.write(n);
+    let dev = getUrlParameter("test") || "";
+    sessionStorage.setItem("braze-dev-version",dev);
+    let version = sessionStorage.getItem("braze-dev-version");
+    let a=document.createElement("div");
+    a.innerHTML=version;
+    document.body.appendChild(a);
+
 </script>
 </body>
 
 <!--
 
-1.html?test=<img%20src%3d1%20onerror%3dalert(1)>
+5.html?test=xxx1x<svg/onload%3dalert(1)>
 
 https://jinone.github.io/bugbounty-dom-xss/
-
 -->

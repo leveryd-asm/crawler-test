@@ -1,0 +1,14 @@
+source: location.hash
+sink: innerHTML
+
+<div id="div"></div>
+<script>
+    let d = document.getElementById("div");
+    d.innerHTML = unescape(location.hash).split("#")[1];
+</script>
+
+<!--
+
+10.html#<svg onload=alert(1)>
+
+-->

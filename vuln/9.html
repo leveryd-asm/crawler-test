@@ -1,0 +1,41 @@
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js" type="application/javascript"></script>
+
+<body>
+source: window.location.search
+
+sink: window.setter
+
+<br>
+
+<script>
+    let query = getQueryParams();
+
+    $.each(query, function(key, value) {
+        window[key] = value;
+    });
+
+    function getQueryParams() {
+
+        let qs = document.location.search + '&' + document.location.hash.replace('#', '');
+
+        qs = qs.split("+").join(" ");
+
+        let params = {},
+            tokens,
+            re = /[?&]?([^=]+)=([^&]*)/g;
+
+        while (tokens = re.exec(qs)) {
+            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+        }
+
+        return params;
+    }
+</script>
+</body>
+
+<!--
+
+9.html?location=javascript:alert(1);
+
+https://jinone.github.io/bugbounty-dom-xss/
+-->

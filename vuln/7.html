@@ -1,0 +1,78 @@
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js" type="application/javascript"></script>
+
+<body>
+source: window.location.search
+
+sink: XMLHttpRequest.open
+
+参数经过base64编码,并且需要点击触发
+
+<br>
+<form id="resetform">
+    <input name="password"/>
+    <input type="submit"/>
+</form>
+<div id="errormsg"></div>
+<script>
+    function getParameterByName(sParam) {
+        let sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    }
+
+    $(document).ready(function() {
+
+        $('#resetform').on("submit",function(e) {
+            e.preventDefault();
+
+            if(getParameterByName("target")){
+                var password = $("#resetform").find("input[name='password']");
+                var referenceID = getParameterByName("referenceID");
+                var referenceType = getParameterByName("referenceType")
+                var token = getParameterByName("token");
+                var target = window.atob(getParameterByName("target"));
+                var url = "https://" + target + "/api/v1/reset/" + referenceID;
+                var request = new XMLHttpRequest();
+
+                request.open("PUT", url, true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.onreadystatechange = function() {
+                    if(request.readyState == request.DONE) {
+                        var response = request.responseText;
+                        var obj = JSON.parse(response);
+
+                        if (request.status == 200) {
+                            window.location.replace("thank-you.html");
+                        }else{
+                            document.getElementById("errormsg").innerHTML = obj['Description'];
+                            document.getElementById("errormsg").style.display = "block";
+                            document.getElementById("errormsg").scrollIntoView();
+                        }
+                    }
+                }
+                request.send("password="+password.val()+"&token="+token+"&referenceType="+referenceType);
+            }else{
+                document.getElementById("errormsg").innerHTML = "There was a problem with your password reset.";
+                document.getElementById("errormsg").style.display = "block";
+                document.getElementById("errormsg").scrollIntoView();
+            }
+            return false;
+        });
+    });
+</script>
+</body>
+
+<!--
+
+7.html?target=aHR0cDovL3d3dy5iYWlkdS5jb20
+
+https://jinone.github.io/bugbounty-dom-xss/
+-->

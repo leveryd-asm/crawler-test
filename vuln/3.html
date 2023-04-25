@@ -22,7 +22,7 @@ sink: document.write
         }
     }
 
-    let n = getUrlParameter("sca_message") || "";
+    let n = getUrlParameter("test") || "";
     // let m = n.toUpperCase(); // convert
     let m = n.replace("r", "");
     document.write(m);
@@ -31,7 +31,7 @@ sink: document.write
 
 <!--
 
-1.html?sca_message=<img%20src%3d1%20onerror%3dalert(1)>
+3.html?test=<img%20src%3d1%20onerror%3dalert(1)>
 
 https://jinone.github.io/bugbounty-dom-xss/
 

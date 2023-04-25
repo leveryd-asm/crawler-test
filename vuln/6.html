@@ -1,0 +1,18 @@
+
+<body>
+source: location.href
+
+sink: document.writeln
+
+<br>
+<script>
+    document.writeln("<a href='https://twitter.com/share?text=" + location.href + "'target='_blank' rel='noreferrer noopener'>Twitter</a>");
+</script>
+</body>
+
+<!--
+
+6.html?x=%27#'onclick='alert(1);
+
+https://jinone.github.io/bugbounty-dom-xss/
+-->
