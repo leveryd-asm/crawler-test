@@ -10,6 +10,8 @@
     <title>Element Plus demo</title>
 </head>
 <body>
+需要触发事件后，才出现文件上传框
+
 <div id="app">
     <el-upload
             class="upload-demo"
@@ -20,18 +22,25 @@
             multiple
             :limit="3"
             :on-exceed="handleExceed"
-            :file-list="fileList">
+            :file-list="fileList" v-if="showFileUpload">
         <el-button size="small" type="primary">点击上传</el-button>
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
     </el-upload>
+    <el-button @click="toggle()"> toggle </el-button>
 </div>
 <script>
     const App = {
         data() {
             return {
-                message: "Hello Element Plus",
+                showFileUpload: false,
             };
         },
+        methods: {
+            toggle() {
+                this.showFileUpload = !this.showFileUpload;
+            }
+        }
+
     };
     const app = Vue.createApp(App);
     app.use(ElementPlus);

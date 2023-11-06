@@ -1,0 +1,38 @@
+<script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js" type="application/javascript"></script>
+
+<body>
+source: window.location.search
+
+sink: eval
+
+测试赋值是否影响检测
+<br>
+
+<script>
+    function getParameterByName(sParam) {
+        let sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    }
+
+    $(document).ready(function() {
+        let x=eval;
+        x(getParameterByName("test"));
+    });
+</script>
+</body>
+
+<!--
+
+8.html?test=alert(1);
+
+https://jinone.github.io/bugbounty-dom-xss/
+-->
