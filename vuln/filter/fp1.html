@@ -1,0 +1,37 @@
+<body>
+<div>
+    source: window.location.search
+    <br>
+    sink: document.write
+
+    输出在html标签内容中，所以需要能使用尖括号才能真正利用
+
+</div>
+
+<script>
+    function getUrlParameter(sParam) {
+        let sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    }
+
+    let n = getUrlParameter("test") || "";
+    document.write(encodeURI(n));
+</script>
+</body>
+
+<!--
+
+1.html?test=<img%20src%3d1%20onerror%3dalert(1)>
+
+https://jinone.github.io/bugbounty-dom-xss/
+
+-->

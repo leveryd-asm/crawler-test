@@ -10,4 +10,3 @@ print_r($ss);?>
 //document.write("当前路径为："+ decodeURI(window.location.pathname));
 </script>
 
-u
